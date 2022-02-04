@@ -1,12 +1,17 @@
 package com.example.forumapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forumapp.R
 import com.example.forumapp.databinding.PostItemBinding
 import com.example.forumapp.network.model.Post
+import com.example.forumapp.repository.PostRepository
+import retrofit2.HttpException
+import java.io.IOException
 
 class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
@@ -31,5 +36,7 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
         postList = newList
         notifyDataSetChanged()
     }
+
+
 
 }
