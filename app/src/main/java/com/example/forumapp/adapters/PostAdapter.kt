@@ -1,17 +1,10 @@
 package com.example.forumapp.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.example.forumapp.R
 import com.example.forumapp.databinding.PostItemBinding
 import com.example.forumapp.network.model.Post
-import com.example.forumapp.repository.PostRepository
-import retrofit2.HttpException
-import java.io.IOException
 
 class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
@@ -34,6 +27,15 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     fun setData(newList: List<Post>) {
         postList = newList
+        notifyDataSetChanged()
+    }
+
+    fun addData(newList: List<Post>) {
+
+        val copyPostList: MutableList<Post> = mutableListOf()
+        copyPostList.addAll(postList)
+        copyPostList.addAll(newList)
+        postList = copyPostList
         notifyDataSetChanged()
     }
 
