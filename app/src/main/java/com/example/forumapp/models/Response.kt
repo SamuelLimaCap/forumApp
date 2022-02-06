@@ -4,5 +4,5 @@ import com.example.forumapp.models.enum.EnumResponse
 
 data class Response<T>(
     val data: T,
-    val response : EnumResponse
+    val enumResponse : EnumResponse
 )

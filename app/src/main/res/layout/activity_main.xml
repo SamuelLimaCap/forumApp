@@ -16,13 +16,13 @@
                 android:scrollbars="vertical" />
 
             <ProgressBar
-                android:id="@+id/loadingPostItems"
+                android:id="@+id/loading_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible" />
 
             <LinearLayout
-                android:id="@+id/error_message"
+                android:id="@+id/error_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
