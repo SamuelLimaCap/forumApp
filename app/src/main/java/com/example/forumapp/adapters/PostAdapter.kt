@@ -33,11 +33,6 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                 it.context.startActivity(postIntent)
             }
         }
-
-
-
-
-
     }
 
     override fun getItemCount(): Int = postList.size

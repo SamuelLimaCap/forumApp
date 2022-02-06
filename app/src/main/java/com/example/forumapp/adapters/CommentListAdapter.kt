@@ -1,16 +1,15 @@
 package com.example.forumapp.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forumapp.R
 import com.example.forumapp.databinding.CommentItemBinding
-import com.example.forumapp.databinding.PostItemBinding
+import com.example.forumapp.network.model.Comment
 
 class CommentListAdapter : RecyclerView.Adapter<CommentListAdapter.CommentListViewHolder>() {
 
-    val commentList = listOf("oi", "oi", "oi")
+    private var commentList: List<Comment> = emptyList()
     lateinit var binding: CommentItemBinding
     inner class CommentListViewHolder(var binding: CommentItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -27,6 +26,11 @@ class CommentListAdapter : RecyclerView.Adapter<CommentListAdapter.CommentListVi
             commentContent.text = context.resources.getText(R.string.lorem_ipsum)
         }
     }
-
     override fun getItemCount(): Int = commentList.size
+
+
+    fun setData(list: List<Comment>) {
+        commentList = list
+        notifyDataSetChanged()
+    }
 }
