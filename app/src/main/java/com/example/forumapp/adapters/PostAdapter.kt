@@ -1,10 +1,12 @@
 package com.example.forumapp.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forumapp.databinding.PostItemBinding
 import com.example.forumapp.network.model.Post
+import com.example.forumapp.ui.PostActivity
 
 class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
@@ -18,9 +20,24 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.binding.username.text = postList[position].userId.toString()
-        holder.binding.title.text = postList[position].title
-        holder.binding.descriptionPreview.text = postList[position].body.replace('\n', ' ')
+        holder.binding.apply {
+            username.text = postList[position].userId.toString()
+            title.text = postList[position].title
+            descriptionPreview.text = postList[position].body.replace('\n', ' ')
+
+
+            viewMoreButton.setOnClickListener {
+                val postIntent = Intent(it.context, PostActivity::class.java)
+                postIntent.putExtra("postId", postList[position].id)
+
+                it.context.startActivity(postIntent)
+            }
+        }
+
+
+
+
+
     }
 
     override fun getItemCount(): Int = postList.size

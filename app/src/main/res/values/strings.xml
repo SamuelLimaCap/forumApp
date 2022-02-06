@@ -2,4 +2,6 @@
     <string name="app_name">forumApp</string>
     <string name="button_try_again">Tentar novamente</string>
     <string name="no_connection">Parece que você está sem conexão</string>
+    <string name="view_more_button">View more</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In finibus, ligula a cursus pharetra, lectus magna tempor mauris, ut gravida enim mi at justo. Duis eros sapien, feugiat sed massa eu, rutrum sagittis sapien. Mauris cursus feugiat lacus, quis tincidunt purus tincidunt et. Vestibulum varius nulla non magna condimentum facilisis. Mauris nisl urna, tincidunt at nulla ut, laoreet mollis dui. Fusce volutpat, enim in accumsan vehicula, arcu purus pellentesque lectus, vulputate tempus massa libero eu risus.</string>
 </resources>
