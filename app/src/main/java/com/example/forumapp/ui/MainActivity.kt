@@ -1,4 +1,4 @@
-package com.example.forumapp
+package com.example.forumapp.ui
 
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.forumapp.R
 import com.example.forumapp.adapters.PostAdapter
 import com.example.forumapp.databinding.ActivityMainBinding
 import com.example.forumapp.models.Response
