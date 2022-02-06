@@ -1,49 +1,114 @@
- package com.example.forumapp
+package com.example.forumapp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
-import androidx.core.view.size
+import android.view.View
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.forumapp.adapters.PostAdapter
 import com.example.forumapp.databinding.ActivityMainBinding
-import com.example.forumapp.repository.PostRepository
-import retrofit2.HttpException
-import java.io.IOException
+import com.example.forumapp.models.Response
+import com.example.forumapp.models.enum.EnumResponse
+import com.example.forumapp.network.model.Post
+import com.example.forumapp.viewmodels.PostListViewModel
 
- class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val postAdapter by lazy { PostAdapter() }
-
+    private lateinit var postListViewModel: PostListViewModel
+    var isLoadingNewItems = false
+    var scrollWasOnBottom = false
 
     private lateinit var binding: ActivityMainBinding
+
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         init()
         setupRecyclerView()
-        lifecycleScope.launchWhenCreated {
-            val response = try {
-                PostRepository.retrofit.getAll()
-            } catch (e: IOException) {
-                return@launchWhenCreated
-            } catch (e: HttpException) {
-                return@launchWhenCreated
-            }
-            if (response.isSuccessful && response.body() != null) {
-                postAdapter.setData(response.body()!!)
-            }
+        setupLiveDataObserver()
+        setupErrorButtonListener()
+        if (postListViewModel.postList.value!!.enumResponse == EnumResponse.ERROR) {
+            getPosts()
         }
-
     }
 
-    private fun init() {
 
+    private fun init() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        postListViewModel = ViewModelProvider(this).get(PostListViewModel::class.java)
     }
 
     private fun setupRecyclerView() {
+        postAdapter.setData(postListViewModel.postList.value!!.data)
         binding.rvPost.adapter = postAdapter
         binding.rvPost.layoutManager = LinearLayoutManager(this)
+        binding.rvPost.addOnScrollListener(onScrollListener)
     }
+
+    private fun setupLiveDataObserver() {
+        postListViewModel.postList.observe(this, Observer {
+            handleGetPosts(it)
+        })
+    }
+
+    private fun setupErrorButtonListener() {
+        binding.buttonErrorMessage.setOnClickListener {
+            getPosts()
+        }
+    }
+
+    private fun getPosts() {
+        hideErrorMessageAndButton()
+        showLoadingIcon()
+        postListViewModel.getPosts()
+    }
+
+    private fun handleGetPosts(response: Response<List<Post>>) {
+        if (response.enumResponse == EnumResponse.DONE) {
+            postAdapter.setData(response.data)
+        } else {
+            showErrorMessageAndButton()
+        }
+        hideLoadingIcon()
+        isLoadingNewItems = false
+        scrollWasOnBottom = false
+    }
+
+
+    private fun showLoadingIcon() {
+        binding.loadingIcon.visibility = View.VISIBLE
+    }
+
+    private fun hideLoadingIcon() {
+        binding.loadingIcon.visibility = View.GONE
+    }
+
+    private fun showErrorMessageAndButton() {
+        binding.errorLayout.visibility = View.VISIBLE
+    }
+
+    private fun hideErrorMessageAndButton() {
+        binding.errorLayout.visibility = View.GONE
+    }
+
+    private val onScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (!recyclerView.canScrollVertically(1)) {
+                if (!scrollWasOnBottom && !isLoadingNewItems) {
+                    scrollWasOnBottom = true
+                    isLoadingNewItems = true
+                    getPosts()
+                }
+            }
+        }
+    }
+
 }

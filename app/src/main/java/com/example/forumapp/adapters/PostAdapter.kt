@@ -2,9 +2,7 @@ package com.example.forumapp.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.forumapp.R
 import com.example.forumapp.databinding.PostItemBinding
 import com.example.forumapp.network.model.Post
 
@@ -31,5 +29,16 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
         postList = newList
         notifyDataSetChanged()
     }
+
+    fun addData(newList: List<Post>) {
+
+        val copyPostList: MutableList<Post> = mutableListOf()
+        copyPostList.addAll(postList)
+        copyPostList.addAll(newList)
+        postList = copyPostList
+        notifyDataSetChanged()
+    }
+
+
 
 }
