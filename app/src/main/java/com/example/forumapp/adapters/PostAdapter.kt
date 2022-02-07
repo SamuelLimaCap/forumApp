@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forumapp.databinding.PostItemBinding
-import com.example.forumapp.models.Post
+import com.example.forumapp.models.PostWithCreatorName
+import com.example.forumapp.models.network.Post
 import com.example.forumapp.ui.PostActivity
 
 class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
-    private var postList: List<Post> = emptyList()
+    private var postList: List<PostWithCreatorName> = emptyList()
     inner class PostViewHolder (var binding: PostItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -21,7 +22,7 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.binding.apply {
-            username.text = postList[position].userId.toString()
+            username.text = postList[position].userCreatorName
             title.text = postList[position].title
             descriptionPreview.text = postList[position].body.replace('\n', ' ')
 
@@ -37,17 +38,8 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     override fun getItemCount(): Int = postList.size
 
-    fun setData(newList: List<Post>) {
+    fun setData(newList: List<PostWithCreatorName>) {
         postList = newList
-        notifyDataSetChanged()
-    }
-
-    fun addData(newList: List<Post>) {
-
-        val copyPostList: MutableList<Post> = mutableListOf()
-        copyPostList.addAll(postList)
-        copyPostList.addAll(newList)
-        postList = copyPostList
         notifyDataSetChanged()
     }
 

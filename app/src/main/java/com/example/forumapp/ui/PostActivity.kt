@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.forumapp.R
 import com.example.forumapp.adapters.CommentListAdapter
 import com.example.forumapp.databinding.ActivityPostBinding
+import com.example.forumapp.models.PostWithCreatorName
 import com.example.forumapp.models.enum.EnumResponse
-import com.example.forumapp.models.Post
+import com.example.forumapp.models.network.PostWithUserData
 import com.example.forumapp.viewmodels.PostActivityVMFactory
 import com.example.forumapp.viewmodels.PostActivityViewModel
 
@@ -53,10 +54,10 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
-    private fun setPostContent(data: Post) {
+    private fun setPostContent(data: PostWithCreatorName) {
         binding.apply {
             postTitle.text = data.title
-            postCreator.text = data.userId.toString()
+            postCreator.text = data.userCreatorName
             postContent.text = data.body
         }
     }
@@ -65,7 +66,7 @@ class PostActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_post)
         postId = intent.getIntExtra("postId", 0)
         postActivityViewModel = ViewModelProvider(this,
-            PostActivityVMFactory(postId!!)).get(PostActivityViewModel::class.java)
+            PostActivityVMFactory(postId)).get(PostActivityViewModel::class.java)
         postActivityViewModel.getPostContent()
     }
 

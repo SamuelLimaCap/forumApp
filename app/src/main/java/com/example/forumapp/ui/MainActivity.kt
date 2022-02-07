@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.forumapp.R
 import com.example.forumapp.adapters.PostAdapter
 import com.example.forumapp.databinding.ActivityMainBinding
+import com.example.forumapp.models.PostWithCreatorName
 import com.example.forumapp.models.Response
 import com.example.forumapp.models.enum.EnumResponse
-import com.example.forumapp.models.Post
+import com.example.forumapp.models.network.Post
 import com.example.forumapp.viewmodels.PostListViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         postListViewModel.getPosts()
     }
 
-    private fun handleGetPosts(response: Response<List<Post>>) {
+    private fun handleGetPosts(response: Response<List<PostWithCreatorName>>) {
         if (response.enumResponse == EnumResponse.DONE) {
             postAdapter.setData(response.data)
         } else {

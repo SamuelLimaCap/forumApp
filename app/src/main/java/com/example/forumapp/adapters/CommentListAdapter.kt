@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forumapp.R
 import com.example.forumapp.databinding.CommentItemBinding
-import com.example.forumapp.models.Comment
+import com.example.forumapp.models.network.Comment
 
 class CommentListAdapter : RecyclerView.Adapter<CommentListAdapter.CommentListViewHolder>() {
 
@@ -22,8 +22,8 @@ class CommentListAdapter : RecyclerView.Adapter<CommentListAdapter.CommentListVi
     override fun onBindViewHolder(holder: CommentListViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-            commentUsername.text = "user name"
-            commentContent.text = context.resources.getText(R.string.lorem_ipsum)
+            commentUsername.text = commentList[position].name
+            commentContent.text = commentList[position].body
         }
     }
     override fun getItemCount(): Int = commentList.size
