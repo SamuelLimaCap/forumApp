@@ -1,7 +1,7 @@
 package com.example.forumapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +11,6 @@ import com.example.forumapp.adapters.CommentListAdapter
 import com.example.forumapp.databinding.ActivityPostBinding
 import com.example.forumapp.models.PostWithCreatorName
 import com.example.forumapp.models.enum.EnumResponse
-import com.example.forumapp.models.network.PostWithUserData
 import com.example.forumapp.viewmodels.PostActivityVMFactory
 import com.example.forumapp.viewmodels.PostActivityViewModel
 
@@ -27,6 +26,7 @@ class PostActivity : AppCompatActivity() {
         init()
         setupRecyclerView()
         setupObserversOnViewModel()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if (postActivityViewModel.postLiveData.value != null) {
             postActivityViewModel.getPostContent()
         }
