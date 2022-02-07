@@ -1,7 +1,7 @@
 package com.example.forumapp.network
 
-import com.example.forumapp.network.model.Comment
-import com.example.forumapp.network.model.Post
+import com.example.forumapp.models.Comment
+import com.example.forumapp.models.Post
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

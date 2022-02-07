@@ -1,13 +1,12 @@
 package com.example.forumapp.viewmodels
 
-import android.content.res.Resources
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.forumapp.models.Response
 import com.example.forumapp.models.enum.EnumResponse
-import com.example.forumapp.network.model.Post
+import com.example.forumapp.models.Post
 import com.example.forumapp.repository.PostRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

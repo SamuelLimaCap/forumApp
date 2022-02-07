@@ -1,4 +1,4 @@
-package com.example.forumapp.network.model
+package com.example.forumapp.models
 
 data class Post(
     val body: String,

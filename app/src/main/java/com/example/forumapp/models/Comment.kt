@@ -1,4 +1,4 @@
-package com.example.forumapp.network.model
+package com.example.forumapp.models
 
 data class Comment(
     val body: String,

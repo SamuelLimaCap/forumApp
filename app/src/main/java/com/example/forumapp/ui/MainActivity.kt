@@ -15,7 +15,7 @@ import com.example.forumapp.adapters.PostAdapter
 import com.example.forumapp.databinding.ActivityMainBinding
 import com.example.forumapp.models.Response
 import com.example.forumapp.models.enum.EnumResponse
-import com.example.forumapp.network.model.Post
+import com.example.forumapp.models.Post
 import com.example.forumapp.viewmodels.PostListViewModel
 
 class MainActivity : AppCompatActivity() {

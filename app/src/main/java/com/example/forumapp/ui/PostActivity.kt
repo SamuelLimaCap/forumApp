@@ -10,7 +10,7 @@ import com.example.forumapp.R
 import com.example.forumapp.adapters.CommentListAdapter
 import com.example.forumapp.databinding.ActivityPostBinding
 import com.example.forumapp.models.enum.EnumResponse
-import com.example.forumapp.network.model.Post
+import com.example.forumapp.models.Post
 import com.example.forumapp.viewmodels.PostActivityVMFactory
 import com.example.forumapp.viewmodels.PostActivityViewModel
 

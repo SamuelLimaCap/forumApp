@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forumapp.databinding.PostItemBinding
-import com.example.forumapp.network.model.Post
+import com.example.forumapp.models.Post
 import com.example.forumapp.ui.PostActivity
 
 class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {

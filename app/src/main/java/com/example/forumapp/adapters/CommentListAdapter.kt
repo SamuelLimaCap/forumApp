@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forumapp.R
 import com.example.forumapp.databinding.CommentItemBinding
-import com.example.forumapp.network.model.Comment
+import com.example.forumapp.models.Comment
 
 class CommentListAdapter : RecyclerView.Adapter<CommentListAdapter.CommentListViewHolder>() {
 

@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.forumapp.models.Response
 import com.example.forumapp.models.enum.EnumResponse
-import com.example.forumapp.network.model.Comment
-import com.example.forumapp.network.model.Post
+import com.example.forumapp.models.Comment
+import com.example.forumapp.models.Post
 import com.example.forumapp.repository.PostRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
