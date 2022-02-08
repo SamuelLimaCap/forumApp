@@ -4,10 +4,10 @@ Um aplicativo mobile que é preenchido com a API fornecida pelo site https://jso
 
 ## Imagens
 
-![pagina inicial](https://imgur.com/ri8CPbJ)
-![pagina inicial](https://imgur.com/qH7VfL3)
-![pagina inicial](https://imgur.com/D3uQT5S)
-![pagina inicial](https://imgur.com/B09G5zE)
+![pagina inicial](https://imgur.com/ri8CPbJ.png)
+![pagina inicial](https://imgur.com/qH7VfL3.png)
+![pagina inicial](https://imgur.com/D3uQT5S.png)
+![pagina inicial](https://imgur.com/B09G5zE.png)
 
 
 ## Bibliotecas utilizadas
