@@ -17,25 +17,31 @@ import java.io.IOException
 class PostListViewModel : ViewModel(){
     private var page: Int = 1
     var postList: MutableLiveData<Response<List<PostWithCreatorName>>> = MutableLiveData(
-        Response(emptyList(), EnumResponse.ERROR)
+        Response(emptyList(), EnumResponse.DONE)
     )
+    val isStatusCallLoading : MutableLiveData<Boolean> = MutableLiveData(false);
 
      fun getPosts(){
          var coroutine = viewModelScope.launch {
+             isStatusCallLoading.postValue(true)
+
             val response = try { PostRepository.retrofit.getPostsGroup10(page) }
             catch (e: IOException) {
                 Log.e("PostListViewMOdel","Error on catching value from web ")
                 addErrorToPostList()
+                isStatusCallLoading.postValue(false)
                 return@launch
             }
             catch (e: HttpException) {
                 Log.e("PostListViewMOdel","Don't have internet connection")
                 addErrorToPostList()
+                isStatusCallLoading.postValue(false)
                 return@launch
             }
 
             if (response.isSuccessful) {
                 addToPostList(response.body()!!)
+                isStatusCallLoading.postValue(false)
                 page++;
             } else {
 

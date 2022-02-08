@@ -19,23 +19,34 @@ class PostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostBinding
     private lateinit var postActivityViewModel: PostActivityViewModel
     private var postId: Int = 0
-
     private val commentListAdapter by lazy { CommentListAdapter() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
         setupRecyclerView()
         setupObserversOnViewModel()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setupActionBar()
+        setupInitialActions()
+
+    }
+
+    private fun setupInitialActions() {
+        getContentFromApi()
+    }
+
+    private fun getContentFromApi() {
         if (postActivityViewModel.postLiveData.value != null) {
             postActivityViewModel.getPostContent()
         }
-
         if (postActivityViewModel.commentListLiveData.value!!.data.isEmpty()) {
             postActivityViewModel.getComments()
         }
+    }
 
-
+    private fun setupActionBar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = resources.getText(R.string.post_actionBar_name)
     }
 
     private fun setupObserversOnViewModel() {

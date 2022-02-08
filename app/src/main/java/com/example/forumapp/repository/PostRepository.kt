@@ -11,7 +11,6 @@ object PostRepository {
     private const val BASE_URL =  "https://jsonplaceholder.typicode.com/"
 
     /*
-
     val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
@@ -20,8 +19,9 @@ object PostRepository {
         addInterceptor(interceptor)
     }.build()
 
-    // ADD .client(client) on Retrofit.Builder(), after the .addConverterFactory()
      */
+
+    // ADD .client(client) on Retrofit.Builder(), after the .addConverterFactory()
 
     val retrofit: PostApi by lazy {
         Retrofit.Builder()
