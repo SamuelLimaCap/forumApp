@@ -1,20 +1,23 @@
-package com.example.forumapp
+package com.example.forumapp.ui
 
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.allViews
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.forumapp.R
 import com.example.forumapp.adapters.PostAdapter
 import com.example.forumapp.databinding.ActivityMainBinding
+import com.example.forumapp.models.PostWithCreatorName
 import com.example.forumapp.models.Response
 import com.example.forumapp.models.enum.EnumResponse
-import com.example.forumapp.network.model.Post
+import com.example.forumapp.models.network.Post
 import com.example.forumapp.viewmodels.PostListViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -29,16 +32,13 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         init()
         setupRecyclerView()
         setupLiveDataObserver()
         setupErrorButtonListener()
-        if (postListViewModel.postList.value!!.enumResponse == EnumResponse.ERROR) {
-            getPosts()
-        }
-    }
+        setupInitialActions()
 
+    }
 
     private fun init() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -56,6 +56,9 @@ class MainActivity : AppCompatActivity() {
         postListViewModel.postList.observe(this, Observer {
             handleGetPosts(it)
         })
+        postListViewModel.isStatusCallLoading.observe(this) {
+            if (it) showLoadingIcon() else hideLoadingIcon()
+        }
     }
 
     private fun setupErrorButtonListener() {
@@ -64,19 +67,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupInitialActions() {
+        if (postListViewModel.postList.value!!.data.isEmpty()) {
+            getPosts()
+        }
+    }
+
+    /*
+        END OF onCreate() methods
+     */
+
     private fun getPosts() {
         hideErrorMessageAndButton()
-        showLoadingIcon()
         postListViewModel.getPosts()
     }
 
-    private fun handleGetPosts(response: Response<List<Post>>) {
+    private fun handleGetPosts(response: Response<List<PostWithCreatorName>>) {
         if (response.enumResponse == EnumResponse.DONE) {
             postAdapter.setData(response.data)
         } else {
             showErrorMessageAndButton()
         }
-        hideLoadingIcon()
         isLoadingNewItems = false
         scrollWasOnBottom = false
     }
@@ -92,11 +103,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun showErrorMessageAndButton() {
         binding.errorLayout.visibility = View.VISIBLE
+        binding.errorLayout.allViews.forEach { it.visibility = View.VISIBLE }
     }
 
     private fun hideErrorMessageAndButton() {
         binding.errorLayout.visibility = View.GONE
+        binding.errorLayout.allViews.forEach { it.visibility = View.GONE }
     }
+
+    /*
+        Listeners
+     */
 
     private val onScrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
